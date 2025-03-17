@@ -62,6 +62,8 @@ The Execution_uncensored_data.R file also includes the calculation of the random
 The Execution_contamination_data.R file calculates the SIFI values when patients are contaminated based on 10 000 simulated datasets.
 The results were also subsequently saved to csv files.
 
+5-column results files (V1 = SIFI value, V2 = HR at the end of the study, V3 = p-value before applying the SIFI method, V4 = p-value after applying the SIFI method, V5 = number of censored patients in the study)
+
 ##Results
 
 Each folder in GitHub named "Table" followed by a number corresponds to a table presented in the article.
