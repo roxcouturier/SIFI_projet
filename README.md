@@ -13,7 +13,6 @@ This project also uses several :
 -   stringr
 -   readr
 -   dplyr
--   here
 -   survival
 -   survminer
 -   ggplot2
@@ -26,49 +25,74 @@ This project also uses several :
 
 ##Functions
 
-Theses scripts should be run first.
-They create functions for calculating SIFI values in different scenarios.
+The following scripts should be run first, as they define functions for calculating SIFI values under different methods.
 
-Functions_sifi.R : creation of different functions :
-
--sifi(): calculates the SIFI value as originally defined by the authors ( Flip, Clone; Best,Worst).
-This function includes a call to the neg_sifi() function, which is used when there is no significant difference in effect between the two treatment arms.
--sifi_remove(): calculates the SIFI value using a new approach which consists of removing subjects from the study (Remove;Best,Worst).
-This function includes a call to the neg_sifi_remove() function, which is used when there is no significant difference in effect between the two treatment arms.
--sifi_random(): calculates the SIFI value using a new approach which consists of randomly selecting subjects in the study (Random Flip, Clone).
-This function includes the call to the neg_sifi_random() function, which is used if there is no significant difference in effect between the two treatment arms.
-A sifi_random_remove() approach has also been developed.
+Functions_SIFI.R : 
+-sifi(): Computes the SIFI value as originally defined by the authors (Flip, Clone; Best, Worst). The function calls neg_sifi(), which is used when there is no significant difference in effect between the two treatment arms.
+-sifi_remove(): Computes the SIFI value using an alternative approach that removes subjects from the study (Remove; Best, Worst). The function calls neg_sifi_remove(), which is used when no significant difference is observed between the treatment arms.
+-sifi_random(): Calculates the SIFI value using a random selection approach (Random Flip, Clone). The function calls neg_sifi_random(), which is applied if no significant difference exists between the treatment arms.
+-sifi_random_remove(): A variation of the sifi_random() approach that removes randomly selected subjects.
 
 Functions_simulations_contamination.R :
 
-4 functions that simulate data sets with contaminated patients and calculate the sifi according to different parameters: (LambdaB; LambdaA) the scale parameter of the weibull distribution in each arm (n1; n2) the sample size for each arm (ka; kb) the shape parameter of the weibull distribution in each arm
+This script contains four functions that simulate datasets with contaminated patients and calculate the SIFI values based on different parameters: 
+-LambdaBand  LambdaA : the scale parameter of the weibull distribution in each arm 
+-n1 and  n2 :  the sample size for each arm 
+-ka and  kb : the shape parameter of the weibull distribution in each arm
 
 Functions_simulations.R :
 
-8 functions that simulate data sets (4 under H0 and 4 under H1).
-Each function is defined according to the SIFI calculation method used, and will calculate the corresponding SIFI value for each dataset simulated.
+This script defines eight functions that simulate datasets under both H0 (null hypothesis) and H1 (alternative hypothesis).
+-Four functions simulate data under H0.
+-Four functions simulate data under H1.
 
-For example, sim_uncensored_data_sifi_original(): simulates a dataset according to different law parameters (lambdaB,lambdaA,n1,n2,ka,kb) and two parameters defining the SIFI calculation method (direction: Best,Worst; operation: Flip, Clone).
+Each function corresponds to a specific SIFI calculation method and computes the SIFI value for every simulated dataset.
+
+Example:
+
+sim_uncensored_data_sifi_original(): Simulates a dataset based on specific parameters (LambdaB, LambdaA, n1, n2, ka, kb) and two SIFI calculation parameters (direction: Best, Worst; operation: Flip, Clone).
 A SIFI value is calculated for each simulated dataset.
 
 ##Execution
 
-Files to be executed once all the functions have been run.
+These scripts should be executed after all functions have been loaded.
 
-Execution_uncensored_data.R and Execution_censored.data.R are files that do the same thing, one under H0 and the other under H1: Each of these files calls the functions defined above.
-For each scenario defined in the manuscript (different according to sample size, simulation law and censoring percentage) the SIFI was calculated 10 000 times according to all methods (Flip, Clone, Remove, Random ; Best,Worst) Each result of the 10 000 simulations was stored in csv files.
-The Execution_uncensored_data.R file also includes the calculation of the random SIFI values for the Graaph dataset.
+Execution_uncensored_data.R and Execution_censored_data.R:
 
-The Execution_contamination_data.R file calculates the SIFI values when patients are contaminated based on 10 000 simulated datasets.
-The results were also subsequently saved to csv files.
+These scripts perform the same task but under different conditions:
+            Execution_uncensored_data.R runs under H0 (null hypothesis).
+            Execution_censored_data.R runs under H1 (alternative hypothesis).
 
-5-column results files (V1 = SIFI value, V2 = HR at the end of the study, V3 = p-value before applying the SIFI method, V4 = p-value after applying the SIFI method, V5 = number of censored patients in the study)
+Each script calls the previously defined functions to compute the SIFI values for each scenario described in the manuscript.
+For each scenario (varying sample sizes, distribution parameters, and censoring percentages), the SIFI is computed 10,000 times using all methods (Flip, Clone, Remove, Random; Best, Worst).
+The results of these 10,000 simulations are saved as CSV files.
+Execution_uncensored_data.R also calculates random SIFI values for the Graph dataset.
+
+Execution_contamination_data.R:
+Computes the SIFI values for datasets with contaminated patients using 10,000 simulations.
+The results are saved as CSV files.
+
+Each results file contains five columns:
+
+V1 = SIFI value.
+V2 = Hazard ratio (HR) at the end of the study.
+V3 = p-value before applying the SIFI method.
+V4 = p-value after applying the SIFI method.
+V5 = Number of censored patients in the study.
 
 ##Results
 
-Each folder in GitHub named "Table" followed by a number corresponds to a table presented in the article.
-All folders contain CSV result files, a "table_number.R" script to retrieve the results obtained using the execution scripts and calculate the expected values in the table, and a csv file with the output table.
-The folders named figures are organized in the same way.
+Each folder in the GitHub repository, named "Table" followed by a number or "Figure", corresponds to a table/figure in the article.
 
-Attention: In the execution files, you must change the "file_path" to the location where you want to save your simulation results.
-To correctly execute the files corresponding to tables and figures, it is necessary to update the "directory_path" of each script to match the location where the files are saved during execution.
+Each folder contains:
+
+CSV result files generated from the execution scripts.
+A table_number.R/Figure_number script that retrieves the simulation results and calculates the expected values for the table/figure.
+A CSV file containing the final table output.
+
+##Important Note:
+
+Before running the execution scripts, make sure to update the file paths:
+
+In the execution scripts, modify the file_path variable to specify where you want to save your simulation results.
+To correctly run the scripts for tables and figures, update the directory_path variable in each script to match the location where the simulation result files were saved.
