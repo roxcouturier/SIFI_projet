@@ -41,7 +41,7 @@ A sifi_random_remove() approach has also been developed.
 
 Functions_simulations_contamination.R :
 
-4 functions that simulate data sets with contaminated patients and calculate the sifi according to different parameters: -LambdaB; LambdaA: the scale parameter of the weibull distribution in each arm -n1; n2: the sample size for each arm -ka; kb: the shape parameter of the weibull distribution in each arm
+4 functions that simulate data sets with contaminated patients and calculate the sifi according to different parameters: (LambdaB; LambdaA) the scale parameter of the weibull distribution in each arm (n1; n2) the sample size for each arm (ka; kb) the shape parameter of the weibull distribution in each arm
 
 Functions_simulations.R :
 
@@ -65,7 +65,7 @@ The results were also subsequently saved to csv files.
 ##Results
 
 Each folder in GitHub named "Table" followed by a number corresponds to a table presented in the article.
-All folders contain CSV result files, a "table_number.R" script to retrieve the results obtained using the execution scripts and calculate the expected values in the table, and a PDF file with the output table.
+All folders contain CSV result files, a "table_number.R" script to retrieve the results obtained using the execution scripts and calculate the expected values in the table, and a csv file with the output table.
 The folders named figures are organized in the same way.
 
 Attention: In the execution files, you must change the "file_path" to the location where you want to save your simulation results.
